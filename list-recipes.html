@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+      <head>
+          <title>My Recipe Book | Meals</title>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <link rel="stylesheet" href="style.css">
+          <link rel="stylesheet" href="FontAwesome/css/all.css">
+      </head>
+    
+      <body class="body-meals" onload="getRecipeList()">
+          
+          <div class="header">
+                <a href="index.html">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+              
+                <img src="images/logo-text.png">
+          </div>
+          
+         <div id="meals">
+             
+             <div class="meals-list" id="output">
+                 
+             </div>
+             
+         </div>
+          
+          <script>
+              var Category = getCategory();
+              
+              function getRecipeList(){
+                  var rootPath = "https://mysite.itvarsity.org/api/recipe-book/";
+                  var fullPath = rootPath + "get-recipes/?Category=" + Category;
+                  
+                  fetch(fullPath)
+                  .then(function(response){
+                      return response.json();
+                      
+                  })
+                  .then(function(data){
+                      console.log(data);
+                  })
+              }
+               
+              function getCategory(){
+                  var url = window.location.href;
+                  var pos = url.search("=");
+                  var Category = url.slice(pos +1);
+                  
+                  return Category;
+              }
+          
+          </script>
+      </body>
+</html>
